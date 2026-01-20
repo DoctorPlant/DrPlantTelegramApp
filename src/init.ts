@@ -5,12 +5,37 @@ import {
   viewport,
   init as initSDK,
   mockTelegramEnv,
-  type ThemeParams,
   retrieveLaunchParams,
   emitEvent,
   miniApp,
   backButton,
 } from '@tma.js/sdk-react';
+
+type TgThemeParams = Partial<Record<string, `#${string}`>>;
+
+function camelToSnake(key: string): string {
+  return key.replace(/[A-Z]/g, (m) => `_${m.toLowerCase()}`);
+}
+
+function toTgThemeParams(input: unknown): TgThemeParams {
+  if (!input || typeof input !== 'object') return {};
+
+  const out: Record<string, `#${string}` | undefined> = {};
+
+  for (const [k, v] of Object.entries(input as Record<string, unknown>)) {
+    // В sdk-react значения часто являются signals/computed: это функции без аргументов.
+    const value = typeof v === 'function' ? (v as () => unknown)() : v;
+
+    // theme_params в Telegram — в основном цвета '#RRGGBB'. Пропускаем всё, что не похоже на это.
+    if (typeof value === 'string' && value.startsWith('#')) {
+      out[camelToSnake(k)] = value as `#${string}`;
+    } else if (value === undefined) {
+      out[camelToSnake(k)] = undefined;
+    }
+  }
+
+  return out;
+}
 
 /**
  * Initializes the application and configures its dependencies.
@@ -38,13 +63,11 @@ export async function init(options: {
     mockTelegramEnv({
       onEvent(event, next) {
         if (event.name === 'web_app_request_theme') {
-          let tp: ThemeParams = {};
-          if (firstThemeSent) {
-            tp = themeParams.state();
-          } else {
-            firstThemeSent = true;
-            tp ||= retrieveLaunchParams().tgWebAppThemeParams;
-          }
+          const tp: TgThemeParams = firstThemeSent
+              ? toTgThemeParams(themeParams.state())
+              : (retrieveLaunchParams().tgWebAppThemeParams ?? {});
+
+          firstThemeSent = true;
           return emitEvent('theme_changed', { theme_params: tp });
         }
 
