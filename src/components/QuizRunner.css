@@ -1,0 +1,39 @@
+.quiz-runner {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 56px); /* Adjusting for header/navigation if any, but IndexPage uses 100vh */
+  /* Page component doesn't seem to add a wrapper with height, so 100vh might be better */
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.quiz-runner__content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.quiz-runner__footer {
+  margin-top: auto;
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+  background: var(--tg-theme-bg-color, #fff);
+}
+
+.quiz-runner__options {
+  padding: 8px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quiz-runner__back-button {
+  padding: 0 16px 16px 16px;
+}
+
+/* Стили для "освежения" вопроса */
+.quiz-runner__question-text {
+  text-align: center;
+  padding: 24px;
+}
