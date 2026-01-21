@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { Button, List, Section, Placeholder, Headline, FixedLayout, Text } from "@telegram-apps/telegram-ui";
+import { useNavigate } from "react-router-dom";
 
 import type { QuizTree } from "@/quiz/schema";
 import { createInitialState, getNode, type QuizState } from "@/quiz/engine";
@@ -7,14 +8,22 @@ import { createInitialState, getNode, type QuizState } from "@/quiz/engine";
 import './QuizRunner.css';
 
 export function QuizRunner({ tree }: { tree: QuizTree }) {
+    const navigate = useNavigate();
     const initial = useMemo(() => createInitialState(tree), [tree]);
     const [state, setState] = useState<QuizState>(initial);
 
     const node = getNode(tree, state.currentId);
 
-    function goBack() {
+    function goBack(e?: React.MouseEvent) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
         setState((prev) => {
-            if (prev.history.length === 0) return prev;
+            if (prev.history.length === 0) {
+                setTimeout(() => navigate('/'), 0);
+                return prev;
+            }
             const newHistory = prev.history.slice(0, -1);
             const prevId = prev.history[prev.history.length - 1];
             return {
@@ -128,14 +137,13 @@ export function QuizRunner({ tree }: { tree: QuizTree }) {
                 </List>
 
                 <div className="quiz-runner__back-button">
-                    <Button 
-                        size="l" 
-                        stretched 
-                        onClick={goBack} 
-                        disabled={state.history.length === 0}
-                    >
-                        Назад
-                    </Button>
+                        <Button 
+                            size="l" 
+                            stretched 
+                            onClick={(e) => goBack(e)} 
+                        >
+                            Назад
+                        </Button>
                 </div>
             </div>
         </div>
