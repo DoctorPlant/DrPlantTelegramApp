@@ -1,0 +1,33 @@
+.index-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.index-page__header {
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.index-page__image {
+  width: 60vw;
+  height: 60vw;
+  max-width: 320px;
+  max-height: 320px;
+  min-width: 180px;
+  min-height: 180px;
+  object-fit: cover;
+}
+
+.index-page__footer {
+  margin-top: auto;
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+
+.index-page__buttons {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
