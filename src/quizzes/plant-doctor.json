@@ -1,101 +1,383 @@
 {
-    "id": "plant-doctor",
-    "title": "Доктор Растение",
-    "start": "q1",
-    "nodes": {
-      "q1": {
-        "type": "question",
-        "text": "Что происходит с листьями?",
-        "options": [
-          { "text": "Желтеют", "next": "q2", "tags": ["yellow"] },
-          { "text": "Сохнут кончики", "next": "q2", "tags": ["dry_tips"] },
-          { "text": "Пятна / точки", "next": "q3", "tags": ["spots"] },
-          { "text": "Опадают", "next": "q2", "tags": ["leaf_drop"] }
-        ]
-      },
-      "q2": {
-        "type": "question",
-        "text": "Как часто поливаете?",
-        "options": [
-          { "text": "Часто, земля почти всегда влажная", "next": "r_overwater", "tags": ["overwater"] },
-          { "text": "Редко, земля часто сухая", "next": "r_underwater", "tags": ["underwater"] },
-          { "text": "Не уверен(а)", "next": "r_unknown", "tags": ["unknown_watering"] }
-        ]
-      },
-      "q3": {
-        "type": "question",
-        "text": "Какие пятна больше похожи?",
-        "options": [
-          { "text": "Коричневые/чёрные сухие", "next": "r_fungus", "tags": ["fungus"] },
-          { "text": "Светлые/жёлтые разводы", "next": "r_sunburn", "tags": ["sunburn"] },
-          { "text": "Есть точки + паутинка", "next": "r_pests", "tags": ["pests"] }
-        ]
-      },
-  
-      "r_overwater": {
-        "type": "result",
-        "title": "Похоже на перелив",
-        "diagnosis": "Слишком частый полив может приводить к нехватке воздуха у корней.",
-        "actions": [
-          "Дай грунту просохнуть.",
-          "Проверь, есть ли дренажные отверстия.",
-          "Если есть запах болота — лучше пересадить."
-        ],
-        "fertilizer": "Пока не удобряй 2–3 недели. Потом — комплексное удобрение 1/2 дозы."
-      },
-      "r_underwater": {
-        "type": "result",
-        "title": "Похоже на недолив",
-        "diagnosis": "Растению может не хватать влаги или влажности воздуха.",
-        "actions": [
-          "Полей до выхода воды в поддон.",
-          "Проверь, не пересох ли земляной ком полностью."
-        ],
-        "fertilizer": "После нормализации полива — удобрение для лиственных раз в 2 недели."
-      },
-      "r_fungus": {
-        "type": "result",
-        "title": "Похоже на грибок",
-        "diagnosis": "Пятна могут быть от переувлажнения + плохой вентиляции.",
-        "actions": [
-          "Уменьши полив и убери воду из поддона.",
-          "Срежь сильно поражённые листья.",
-          "Подумай про обработку фунгицидом."
-        ],
-        "fertilizer": "Не удобряй до стабилизации."
-      },
-      "r_sunburn": {
-        "type": "result",
-        "title": "Похоже на ожог солнцем",
-        "diagnosis": "Прямые лучи могут оставлять пятна/выгорание.",
-        "actions": [
-          "Убери от прямого солнца.",
-          "Постепенно приучай к свету."
-        ],
-        "fertilizer": "Можно мягкое удобрение через 1–2 недели."
-      },
-      "r_pests": {
-        "type": "result",
-        "title": "Возможны вредители",
-        "diagnosis": "Паутинка и точки часто бывают при клеще/трипсах.",
-        "actions": [
-          "Изолируй растение от других.",
-          "Промой листья тёплым душем.",
-          "Обработай средством от вредителей."
-        ],
-        "fertilizer": "Не удобряй до победы над вредителями."
-      },
-      "r_unknown": {
-        "type": "result",
-        "title": "Нужно больше данных",
-        "diagnosis": "Я не уверен(а) по ответам. Можно уточнить симптомы.",
-        "actions": [
-          "Проверь листья с обеих сторон.",
-          "Посмотри на почву (сухая/влажная).",
-          "Скажи, где стоит растение (свет/сквозняки)."
-        ],
-        "fertilizer": "Пока не удобряй."
-      }
+  "id": "plant-diagnosis-quiz",
+  "title": "Диагностика болезни растения",
+  "start": "q0_main_symptom",
+  "nodes": {
+    "q0_main_symptom": {
+      "type": "question",
+      "text": "Что больше всего похоже на проблему?",
+      "options": [
+        { "text": "Налёт / пушок на листьях", "next": "q1_coating_type", "tags": ["symptom:coating"] },
+        { "text": "Пятна на листьях", "next": "q2_spots_wet_or_dry", "tags": ["symptom:spots"] },
+        { "text": "Листья желтеют (без пятен)", "next": "q5_yellowing_pattern", "tags": ["symptom:yellowing"] },
+        { "text": "Листья вянут / становятся мягкими", "next": "q6_soil_moisture_for_wilt", "tags": ["symptom:wilt"] },
+        { "text": "Сухие кончики / края листьев", "next": "q7_tip_burn_or_edges", "tags": ["symptom:dry_edges"] },
+        { "text": "Насекомые / липкость / паутинка", "next": "q8_pest_signs", "tags": ["symptom:pests"] },
+        { "text": "Деформация / странный рост", "next": "q9_deformation_mosaic", "tags": ["symptom:deformation"] }
+      ]
+    },
+
+    "q1_coating_type": {
+      "type": "question",
+      "text": "Какой налёт вы видите?",
+      "options": [
+        { "text": "Белый, как мука/пудра", "next": "r_powdery_mildew", "tags": ["coating:white_powder"] },
+        { "text": "Серый, пушистый (как плесень)", "next": "r_gray_mold", "tags": ["coating:gray_fuzzy"] },
+        { "text": "Снизу листа серо-фиолетовый, сверху жёлтые пятна", "next": "r_downy_mildew", "tags": ["coating:underside_gray", "spots:yellow"] },
+        { "text": "Похоже на липкую плёнку", "next": "q8_pest_signs", "tags": ["coating:sticky_film"] }
+      ]
+    },
+
+    "q2_spots_wet_or_dry": {
+      "type": "question",
+      "text": "Какие пятна по ощущениям и виду?",
+      "options": [
+        { "text": "Сухие", "next": "q3_dry_spots_sunburn_check", "tags": ["spots:dry"] },
+        { "text": "Мокрые / водянистые", "next": "q4_wet_spots_smell_soft", "tags": ["spots:wet"] }
+      ]
+    },
+
+    "q3_dry_spots_sunburn_check": {
+      "type": "question",
+      "text": "Пятна светлые/бежевые, как выгоревшие, чаще со стороны окна?",
+      "options": [
+        { "text": "Да, похоже на выгорание", "next": "r_sunburn", "tags": ["light:direct_sun", "spots:bleached"] },
+        { "text": "Нет, не похоже", "next": "q3_2_dry_spots_spreading", "tags": ["spots:not_sunburn"] }
+      ]
+    },
+
+    "q3_2_dry_spots_spreading": {
+      "type": "question",
+      "text": "Пятна коричневые/чёрные и постепенно увеличиваются/распространяются?",
+      "options": [
+        { "text": "Да, увеличиваются", "next": "r_fungal_leaf_spot", "tags": ["spots:brown_black", "progression:spreading"] },
+        { "text": "Нет, скорее локально/не растут", "next": "q3_3_rust_pustules", "tags": ["progression:localized"] }
+      ]
+    },
+
+    "q3_3_rust_pustules": {
+      "type": "question",
+      "text": "На нижней стороне листа есть рыжие/оранжевые «пупырышки» или порошок?",
+      "options": [
+        { "text": "Да, есть рыжие «пупырышки»", "next": "r_rust", "tags": ["underside:rust_pustules"] },
+        { "text": "Нет", "next": "r_physiological_spots_stress", "tags": ["spots:unclear"] }
+      ]
+    },
+
+    "q4_wet_spots_smell_soft": {
+      "type": "question",
+      "text": "Есть неприятный запах и ткань становится мягкой/размокшей?",
+      "options": [
+        { "text": "Да, есть запах/мягкая гниль", "next": "r_bacterial_rot", "tags": ["rot:soft", "smell:bad"] },
+        { "text": "Нет, запаха нет", "next": "q4_2_yellow_halo_greasy", "tags": ["spots:wet_no_smell"] }
+      ]
+    },
+
+    "q4_2_yellow_halo_greasy": {
+      "type": "question",
+      "text": "Есть жёлтая кайма вокруг пятен или «жирный» блеск пятна?",
+      "options": [
+        { "text": "Да, есть кайма/жирный блеск", "next": "r_bacterial_leaf_spot", "tags": ["spots:yellow_halo", "spots:greasy"] },
+        { "text": "Нет", "next": "r_infectious_leaf_spot_unspecified", "tags": ["spots:infectious_unspecified"] }
+      ]
+    },
+
+    "q5_yellowing_pattern": {
+      "type": "question",
+      "text": "Какие листья желтеют сильнее?",
+      "options": [
+        { "text": "Старые нижние листья", "next": "q5_1_lower_yellowing_growth", "tags": ["yellowing:lower_old"] },
+        { "text": "Молодые/верхние листья", "next": "q5_2_upper_chlorosis_veins", "tags": ["yellowing:upper_young"] },
+        { "text": "Почти всё растение целиком", "next": "q5_3_whole_plant_soil_moisture", "tags": ["yellowing:whole_plant"] }
+      ]
+    },
+
+    "q5_1_lower_yellowing_growth": {
+      "type": "question",
+      "text": "При этом рост слабый, новые листья мельче обычного?",
+      "options": [
+        { "text": "Да", "next": "r_nitrogen_deficiency", "tags": ["nutrition:deficiency", "N:deficiency"] },
+        { "text": "Нет / не уверен", "next": "r_physiological_stress_general", "tags": ["yellowing:unclear"] }
+      ]
+    },
+
+    "q5_2_upper_chlorosis_veins": {
+      "type": "question",
+      "text": "Жилки остаются зелёными, а между ними лист желтеет (особенно на молодых листьях)?",
+      "options": [
+        { "text": "Да, жилки зелёные", "next": "r_iron_chlorosis", "tags": ["chlorosis:interveinal", "Fe:deficiency"] },
+        { "text": "Нет / не уверен", "next": "r_physiological_stress_general", "tags": ["yellowing:unclear"] }
+      ]
+    },
+
+    "q5_3_whole_plant_soil_moisture": {
+      "type": "question",
+      "text": "Почва сейчас скорее мокрая или сухая?",
+      "options": [
+        { "text": "Часто мокрая / долго не просыхает", "next": "r_overwatering_root_rot", "tags": ["watering:over", "soil:wet"] },
+        { "text": "Скорее сухая / часто пересыхает", "next": "r_underwatering", "tags": ["watering:under", "soil:dry"] },
+        { "text": "Нормальная влажность", "next": "r_physiological_stress_general", "tags": ["soil:normal"] }
+      ]
+    },
+
+    "q6_soil_moisture_for_wilt": {
+      "type": "question",
+      "text": "Какая почва сейчас?",
+      "options": [
+        { "text": "Сухая", "next": "r_underwatering", "tags": ["soil:dry", "wilt:yes"] },
+        { "text": "Мокрая", "next": "r_overwatering_root_rot", "tags": ["soil:wet", "wilt:yes"] },
+        { "text": "Нормальная", "next": "q6_2_cold_draft", "tags": ["soil:normal", "wilt:yes"] }
+      ]
+    },
+
+    "q6_2_cold_draft": {
+      "type": "question",
+      "text": "Был холод/сквозняк/резкая смена условий в последние дни?",
+      "options": [
+        { "text": "Да", "next": "r_cold_stress", "tags": ["stress:cold_draft"] },
+        { "text": "Нет / не уверен", "next": "r_physiological_stress_general", "tags": ["stress:unclear"] }
+      ]
+    },
+
+    "q7_tip_burn_or_edges": {
+      "type": "question",
+      "text": "Сохнут именно кончики без явных пятен по центру листа?",
+      "options": [
+        { "text": "Да, в основном кончики", "next": "q7_1_low_humidity", "tags": ["drying:tips"] },
+        { "text": "Нет, скорее края/как ожог по кромке", "next": "q7_2_salt_or_hard_water", "tags": ["drying:edges"] }
+      ]
+    },
+
+    "q7_1_low_humidity": {
+      "type": "question",
+      "text": "Воздух сухой (батареи/зима), влажность низкая?",
+      "options": [
+        { "text": "Да, сухо", "next": "r_low_humidity", "tags": ["humidity:low"] },
+        { "text": "Нет / не уверен", "next": "r_physiological_stress_general", "tags": ["humidity:unclear"] }
+      ]
+    },
+
+    "q7_2_salt_or_hard_water": {
+      "type": "question",
+      "text": "Есть белый налёт/кристаллы на почве или стенках горшка?",
+      "options": [
+        { "text": "Да, есть налёт", "next": "r_soil_salinity_hard_water", "tags": ["soil:salt_build_up"] },
+        { "text": "Нет / не уверен", "next": "r_physiological_stress_general", "tags": ["soil:salt_unknown"] }
+      ]
+    },
+
+    "q8_pest_signs": {
+      "type": "question",
+      "text": "Что из этого больше всего похоже?",
+      "options": [
+        { "text": "Тонкая паутинка, мелкие светлые точки на листьях", "next": "r_spider_mite", "tags": ["pest:spider_mite", "sign:webbing"] },
+        { "text": "Липкие листья и видны мелкие насекомые", "next": "r_aphids", "tags": ["pest:aphids", "sign:sticky"] },
+        { "text": "Белые «ватные» комочки в пазухах листьев", "next": "r_mealybug", "tags": ["pest:mealybug", "sign:cotton"] },
+        { "text": "Коричневые «бляшки» на листьях/стеблях", "next": "r_scale", "tags": ["pest:scale", "sign:plaques"] },
+        { "text": "Серебристые штрихи + чёрные точки", "next": "r_thrips", "tags": ["pest:thrips", "sign:silvering"] },
+        { "text": "Мошки взлетают при встряхивании", "next": "r_whitefly", "tags": ["pest:whitefly", "sign:flying"] }
+      ]
+    },
+
+    "q9_deformation_mosaic": {
+      "type": "question",
+      "text": "Есть «мозаичный» рисунок (чередование светлого/тёмного) и листья деформируются?",
+      "options": [
+        { "text": "Да, похоже на мозаику", "next": "r_viral_mosaic_suspected", "tags": ["virus:suspected", "pattern:mosaic"] },
+        { "text": "Нет", "next": "q9_2_low_light_stretching", "tags": ["pattern:not_mosaic"] }
+      ]
+    },
+
+    "q9_2_low_light_stretching": {
+      "type": "question",
+      "text": "Растение вытягивается, новые листья мелкие, стебли тонкие?",
+      "options": [
+        { "text": "Да", "next": "r_low_light", "tags": ["light:low", "growth:etiolation"] },
+        { "text": "Нет / не уверен", "next": "r_physiological_stress_general", "tags": ["growth:unclear"] }
+      ]
+    },
+
+    "r_powdery_mildew": {
+      "type": "result",
+      "title": "Мучнистая роса",
+      "diagnosis": "Белый порошкообразный налёт на листьях, характерный для грибкового заболевания.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_downy_mildew": {
+      "type": "result",
+      "title": "Ложная мучнистая роса (пероноспороз)",
+      "diagnosis": "Жёлтые пятна сверху листа и серо-фиолетовый налёт снизу — типичный признак пероноспороза.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_gray_mold": {
+      "type": "result",
+      "title": "Серая гниль (ботритис)",
+      "diagnosis": "Серый пушистый налёт и размягчение тканей часто указывают на серую гниль.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_rust": {
+      "type": "result",
+      "title": "Ржавчина",
+      "diagnosis": "Рыжие/оранжевые «пупырышки» (пустулы) на нижней стороне листа — характерный признак ржавчины.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_fungal_leaf_spot": {
+      "type": "result",
+      "title": "Грибковая пятнистость листьев",
+      "diagnosis": "Коричневые/чёрные сухие пятна, которые постепенно увеличиваются, часто связаны с грибковой пятнистостью.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_bacterial_leaf_spot": {
+      "type": "result",
+      "title": "Бактериальная пятнистость",
+      "diagnosis": "Водянистые/«жирные» пятна с жёлтой каймой типичны для бактериальной пятнистости.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_bacterial_rot": {
+      "type": "result",
+      "title": "Бактериальная гниль",
+      "diagnosis": "Быстрое размягчение тканей и неприятный запах часто указывают на бактериальную гниль.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_infectious_leaf_spot_unspecified": {
+      "type": "result",
+      "title": "Инфекционная пятнистость (неуточнённая)",
+      "diagnosis": "Пятна выглядят инфекционно, но по описанию трудно отличить грибковую причину от бактериальной.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_sunburn": {
+      "type": "result",
+      "title": "Солнечный ожог",
+      "diagnosis": "Светлые сухие «выгоревшие» пятна, чаще со стороны окна, обычно связаны с ожогом от прямого солнца.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_overwatering_root_rot": {
+      "type": "result",
+      "title": "Перелив / загнивание корней",
+      "diagnosis": "Вялость или массовое пожелтение при мокрой почве часто связано с переливом и проблемами корней.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_underwatering": {
+      "type": "result",
+      "title": "Пересушка / недолив",
+      "diagnosis": "Вялость или массовое пожелтение при сухой почве часто связано с недостатком воды.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_low_humidity": {
+      "type": "result",
+      "title": "Низкая влажность воздуха",
+      "diagnosis": "Сухие кончики листьев часто связаны с сухим воздухом, особенно зимой или рядом с батареями.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_soil_salinity_hard_water": {
+      "type": "result",
+      "title": "Засоление почвы / жёсткая вода",
+      "diagnosis": "Белый налёт на почве/горшке и подсыхание краёв листьев часто указывают на засоление и жёсткую воду.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_nitrogen_deficiency": {
+      "type": "result",
+      "title": "Дефицит азота (N)",
+      "diagnosis": "Пожелтение старых нижних листьев и слабый рост часто указывают на дефицит азота.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_iron_chlorosis": {
+      "type": "result",
+      "title": "Хлороз (дефицит железа Fe)",
+      "diagnosis": "Желтеют молодые листья, при этом жилки остаются зелёными — типичная картина железного хлороза.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_spider_mite": {
+      "type": "result",
+      "title": "Паутинный клещ",
+      "diagnosis": "Тонкая паутинка и мелкие светлые точки/«мраморность» на листьях характерны для паутинного клеща.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_thrips": {
+      "type": "result",
+      "title": "Трипсы",
+      "diagnosis": "Серебристые штрихи на листьях и мелкие чёрные точки часто указывают на трипсов.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_aphids": {
+      "type": "result",
+      "title": "Тля",
+      "diagnosis": "Липкость и видимые скопления мелких насекомых часто связаны с тлёй.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_mealybug": {
+      "type": "result",
+      "title": "Мучнистый червец",
+      "diagnosis": "Белые «ватные» комочки в пазухах листьев характерны для мучнистого червеца.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_scale": {
+      "type": "result",
+      "title": "Щитовка",
+      "diagnosis": "Коричневые плотные «бляшки» на листьях/стеблях и липкость часто указывают на щитовку.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_whitefly": {
+      "type": "result",
+      "title": "Белокрылка",
+      "diagnosis": "Мелкие белые мошки, которые взлетают при встряхивании растения, характерны для белокрылки.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_viral_mosaic_suspected": {
+      "type": "result",
+      "title": "Вирусная мозаика (подозрение)",
+      "diagnosis": "Мозаичный рисунок, деформация листьев и угнетение роста могут указывать на вирусную инфекцию.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_low_light": {
+      "type": "result",
+      "title": "Недостаток света",
+      "diagnosis": "Вытягивание, тонкие стебли и мелкие новые листья часто связаны с недостатком освещения.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_cold_stress": {
+      "type": "result",
+      "title": "Переохлаждение / стресс от условий",
+      "diagnosis": "Резкое ухудшение состояния после холода, сквозняка или перемещения часто связано со стрессом условий.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_physiological_spots_stress": {
+      "type": "result",
+      "title": "Физиологические пятна (стресс/ошибка ухода)",
+      "diagnosis": "Если нет признаков грибка/бактерий/вредителей, пятна могут быть следствием стресса, холода или ошибки ухода.",
+      "actions": [],
+      "fertilizer": ""
+    },
+    "r_physiological_stress_general": {
+      "type": "result",
+      "title": "Физиологическая проблема / стресс (неуточнённо)",
+      "diagnosis": "По описанию похоже на неинфекционную причину (условия, режим полива, свет, влажность), но без уточнений диагноз не точен.",
+      "actions": [],
+      "fertilizer": ""
     }
   }
-  
+}
