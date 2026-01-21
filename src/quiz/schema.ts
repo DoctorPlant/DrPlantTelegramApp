@@ -14,12 +14,24 @@ export const QuizQuestionNodeSchema = z.object({
     options: z.array(QuizOptionSchema),
 });
 
+export const QuizProductLinkSchema = z.object({
+    title: z.string(),
+    url: z.string(),
+});
+
+export const QuizProductSchema = z.object({
+    name: z.string(),
+    description: z.string(),
+    image: z.string(),
+    links: z.array(QuizProductLinkSchema),
+});
+
 export const QuizResultNodeSchema = z.object({
     type: z.literal("result"),
     title: z.string(),
     diagnosis: z.string(),
     actions: z.array(z.string()),
-    fertilizer: z.string(),
+    products: z.array(QuizProductSchema).optional(),
 });
 
 export const QuizNodeSchema = z.union([QuizQuestionNodeSchema, QuizResultNodeSchema]);
