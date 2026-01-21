@@ -5,6 +5,7 @@ import { InitDataPage } from '@/pages/InitDataPage.tsx';
 import { LaunchParamsPage } from '@/pages/LaunchParamsPage.tsx';
 import { ThemeParamsPage } from '@/pages/ThemeParamsPage.tsx';
 import { TONConnectPage } from '@/pages/TONConnectPage/TONConnectPage';
+import { PlantDoctorPage } from "@/pages/PlantDoctorPage";
 
 interface Route {
   path: string;
@@ -41,4 +42,5 @@ export const routes: Route[] = [
       </svg>
     ),
   },
+  { path: "/plant-doctor", Component: PlantDoctorPage, title: "Доктор Растение" },
 ];
