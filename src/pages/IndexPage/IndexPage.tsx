@@ -3,12 +3,13 @@ import type { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Page } from '@/components/Page';
+import { useAsset } from '@/utils/assets';
 
 import './IndexPage.css';
-const appLogo = `${import.meta.env.BASE_URL}logo.png`;
 
 export const IndexPage: FC = () => {
   const navigate = useNavigate();
+  const appLogo = useAsset('logo.png');
 
   return (
     <Page back={false}>

@@ -5,18 +5,14 @@ import { useNavigate } from "react-router-dom";
 import type { QuizTree } from "@/quiz/schema";
 import { createInitialState, getNode, type QuizState } from "@/quiz/engine";
 
+import { useAsset } from "@/utils/assets";
+
 import './QuizRunner.css';
 
-// Helper to resolve asset paths with base URL
-function resolveAsset(path: string | undefined) {
-    if (!path) return undefined;
-    if (path.startsWith('http')) return path;
-    const base = import.meta.env.BASE_URL;
-    // Ensure base ends with / and path doesn't start with / for simple concatenation
-    const normalizedBase = base.endsWith('/') ? base : `${base}/`;
-    const normalizedPath = path.startsWith('/') ? path.substring(1) : path;
-    const resolved = `${normalizedBase}${normalizedPath}`;
-    return resolved;
+function AssetImage({ src, alt, className, style }: { src?: string, alt?: string, className?: string, style?: React.CSSProperties }) {
+    const resolved = useAsset(src);
+    if (!src) return null;
+    return <img src={resolved} alt={alt} className={className} style={style} />;
 }
 
 export function QuizRunner({ tree }: { tree: QuizTree }) {
@@ -66,8 +62,8 @@ export function QuizRunner({ tree }: { tree: QuizTree }) {
                             </div>
                             {node.image && (
                                 <div className="quiz-runner__result-image-container">
-                                    <img 
-                                        src={resolveAsset(node.image)} 
+                                    <AssetImage 
+                                        src={node.image} 
                                         alt={node.title} 
                                         className="quiz-runner__result-image"
                                     />
@@ -117,8 +113,8 @@ export function QuizRunner({ tree }: { tree: QuizTree }) {
                                                     padding: '8px', 
                                                     borderRadius: '12px' 
                                                 }}>
-                                                    <img 
-                                                        src={resolveAsset(product.image)} 
+                                                    <AssetImage 
+                                                        src={product.image} 
                                                         alt={product.name} 
                                                         style={{ width: '64px', height: '64px', borderRadius: '8px', objectFit: 'cover' }} 
                                                     />
@@ -211,8 +207,8 @@ export function QuizRunner({ tree }: { tree: QuizTree }) {
                                         >
                                             {opt.image && (
                                                 <div className="quiz-runner__option-image-container">
-                                                    <img 
-                                                        src={resolveAsset(opt.image)} 
+                                                    <AssetImage 
+                                                        src={opt.image} 
                                                         alt="" 
                                                     />
                                                 </div>

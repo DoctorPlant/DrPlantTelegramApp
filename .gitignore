@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 *.pem
+
+# build cache
+build-cache/

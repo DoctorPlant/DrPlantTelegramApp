@@ -2,6 +2,7 @@ import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
 import mkcert from 'vite-plugin-mkcert';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -24,6 +25,14 @@ export default defineConfig({
     // Using this plugin requires admin rights on the first dev-mode launch.
     // https://www.npmjs.com/package/vite-plugin-mkcert
     process.env.HTTPS && mkcert(),
+    viteStaticCopy({
+      targets: [
+        {
+          src: 'build-cache/webp-cache/*',
+          dest: '.'
+        }
+      ]
+    })
   ],
   build: {
     target: 'esnext',
@@ -33,5 +42,14 @@ export default defineConfig({
   server: {
     // Exposes your dev server and makes it accessible for the devices in the same network.
     host: true,
+    fs: {
+      allow: ['..']
+    }
   },
+  preview: {
+    port: 4173,
+    host: true,
+  },
+  // Ensure webp-cache is included in the build
+  // We can use a plugin or just copy it to dist
 });
