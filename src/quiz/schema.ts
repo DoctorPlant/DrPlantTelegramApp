@@ -6,6 +6,7 @@ export const QuizOptionSchema = z.object({
     text: z.string(),
     next: z.string(),
     tags: z.array(z.string()).optional(),
+    image: z.string().optional(),
 });
 
 export const QuizQuestionNodeSchema = z.object({

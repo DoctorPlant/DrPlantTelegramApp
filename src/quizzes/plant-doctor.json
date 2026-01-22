@@ -5,15 +5,31 @@
   "nodes": {
     "q0_main_symptom": {
       "type": "question",
-      "text": "Что больше всего похоже на проблему?",
+      "text": "Что случилось с вашим растением?",
       "options": [
-        { "text": "Налёт / пушок на листьях", "next": "q1_coating_type", "tags": ["symptom:coating"] },
-        { "text": "Пятна на листьях", "next": "q2_spots_wet_or_dry", "tags": ["symptom:spots"] },
-        { "text": "Листья желтеют (без пятен)", "next": "q5_yellowing_pattern", "tags": ["symptom:yellowing"] },
-        { "text": "Листья вянут / становятся мягкими", "next": "q6_soil_moisture_for_wilt", "tags": ["symptom:wilt"] },
-        { "text": "Сухие кончики / края листьев", "next": "q7_tip_burn_or_edges", "tags": ["symptom:dry_edges"] },
-        { "text": "Насекомые / липкость / паутинка", "next": "q8_pest_signs", "tags": ["symptom:pests"] },
-        { "text": "Деформация / странный рост", "next": "q9_deformation_mosaic", "tags": ["symptom:deformation"] }
+        { "text": "Появились пятна или изменился цвет листьев", "next": "q0_spots_or_color", "tags": ["symptom:color_change"], "image": "assets/symptoms/spots_or_color.png" },
+        { "text": "Листья сохнут, вянут или опадают", "next": "q0_wilt_or_dry", "tags": ["symptom:wilt_dry"], "image": "assets/symptoms/wilt_or_dry.png" },
+        { "text": "Виден налёт, пушок или странные образования", "next": "q1_coating_type", "tags": ["symptom:coating"], "image": "assets/symptoms/coating.png" },
+        { "text": "Заметил насекомых, паутинку или липкость", "next": "q8_pest_signs", "tags": ["symptom:pests"], "image": "assets/symptoms/pests.png" },
+        { "text": "Листья деформированы или странно растут", "next": "q9_deformation_mosaic", "tags": ["symptom:deformation"], "image": "assets/symptoms/deformation.png" }
+      ]
+    },
+
+    "q0_spots_or_color": {
+      "type": "question",
+      "text": "Как именно изменился цвет или вид листьев?",
+      "options": [
+        { "text": "На листьях появились пятна (сухие или мокрые)", "next": "q2_spots_wet_or_dry", "tags": ["symptom:spots"], "image": "assets/symptoms/spots.png" },
+        { "text": "Листья желтеют целиком или частями (без пятен)", "next": "q5_yellowing_pattern", "tags": ["symptom:yellowing"], "image": "assets/symptoms/yellowing.png" }
+      ]
+    },
+
+    "q0_wilt_or_dry": {
+      "type": "question",
+      "text": "Что именно происходит с листьями?",
+      "options": [
+        { "text": "Вянут, становятся мягкими или «тряпочками»", "next": "q6_soil_moisture_for_wilt", "tags": ["symptom:wilt"], "image": "assets/symptoms/wilting.png" },
+        { "text": "Сохнут кончики или края листьев", "next": "q7_tip_burn_or_edges", "tags": ["symptom:dry_edges"], "image": "assets/symptoms/dry_edges.png" }
       ]
     },
 

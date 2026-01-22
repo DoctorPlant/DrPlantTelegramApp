@@ -1,35 +1,104 @@
 .quiz-runner {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 56px); /* Adjusting for header/navigation if any, but IndexPage uses 100vh */
-  /* Page component doesn't seem to add a wrapper with height, so 100vh might be better */
   height: 100vh;
   box-sizing: border-box;
 }
 
 .quiz-runner__content {
-  flex-grow: 1;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow-y: auto;
 }
 
 .quiz-runner__footer {
-  margin-top: auto;
-  padding-bottom: env(safe-area-inset-bottom, 16px);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
   background: var(--tg-theme-bg-color, #fff);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.quiz-runner__options-container {
+  overflow-y: auto;
+  max-height: 60vh;
+  -webkit-overflow-scrolling: touch;
 }
 
 .quiz-runner__options {
   padding: 8px 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+/* Сетка для вариантов с картинками */
+.quiz-runner__options:has(.quiz-runner__option--with-image) {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.quiz-runner__option {
+  background: var(--tg-theme-secondary-bg-color, #f0f0f0);
+  border-radius: 16px;
+  overflow: hidden;
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.quiz-runner__option:active {
+  opacity: 0.7;
+}
+
+.quiz-runner__option--with-image {
   flex-direction: column;
-  gap: 8px;
+  align-items: stretch;
+  padding: 0;
+  text-align: center;
+}
+
+.quiz-runner__option-image-container {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--tg-theme-bg-color, #fff);
+}
+
+.quiz-runner__option-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.quiz-runner__option-text {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  min-height: 48px;
+}
+
+.quiz-runner__option-text span {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.2;
 }
 
 .quiz-runner__back-button {
-  padding: 0 16px 16px 16px;
+  padding: 12px 16px 16px 16px;
+  margin-top: auto;
 }
 
 /* Стили для "освежения" вопроса */

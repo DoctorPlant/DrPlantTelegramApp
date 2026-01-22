@@ -66,64 +66,66 @@ export function QuizRunner({ tree }: { tree: QuizTree }) {
                 </div>
 
                 <div className="quiz-runner__footer">
-                    <List>
-                        {node.actions.length > 0 && (
-                            <Section>
-                                <div style={{ padding: '16px 16px 16px' }}>
-                                    <Headline weight="2" style={{ marginBottom: '8px', color: 'var(--tg-theme-hint-color)', fontSize: '14px', textTransform: 'uppercase' }}>
-                                        Рекомендации
-                                    </Headline>
-                                    <Text style={{ color: 'var(--tg-theme-text-color)', display: 'block' }}>
-                                        {node.actions.join(", ")}
-                                    </Text>
-                                </div>
-                            </Section>
-                        )}
-                        {node.products && node.products.length > 0 && (
-                            <Section>
-                                <div style={{ padding: '16px 16px 16px' }}>
-                                    <Headline weight="2" style={{ marginBottom: '12px', color: 'var(--tg-theme-hint-color)', fontSize: '14px', textTransform: 'uppercase' }}>
-                                        Рекомендованные товары
-                                    </Headline>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                                        {node.products.map((product, pIdx) => (
-                                            <div key={pIdx} style={{ 
-                                                display: 'flex', 
-                                                gap: '12px', 
-                                                background: 'var(--tg-theme-secondary-bg-color)', 
-                                                padding: '12px', 
-                                                borderRadius: '12px' 
-                                            }}>
-                                                <img 
-                                                    src={product.image} 
-                                                    alt={product.name} 
-                                                    style={{ width: '80px', height: '80px', borderRadius: '8px', objectFit: 'cover' }} 
-                                                />
-                                                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                                                    <Text weight="2" style={{ display: 'block' }}>{product.name}</Text>
-                                                    <Text style={{ fontSize: '14px', color: 'var(--tg-theme-hint-color)', display: 'block' }}>
-                                                        {product.description}
-                                                    </Text>
-                                                    <div style={{ display: 'flex', gap: '8px', marginTop: '4px', flexWrap: 'wrap' }}>
-                                                        {product.links.map((link, lIdx) => (
-                                                            <Button 
-                                                                key={lIdx} 
-                                                                size="s" 
-                                                                mode="bezeled"
-                                                                onClick={() => window.open(link.url, '_blank')}
-                                                            >
-                                                                {link.title}
-                                                            </Button>
-                                                        ))}
+                    <div className="quiz-runner__options-container">
+                        <List>
+                            {node.actions.length > 0 && (
+                                <Section>
+                                    <div style={{ padding: '16px 16px 16px' }}>
+                                        <Headline weight="2" style={{ marginBottom: '8px', color: 'var(--tg-theme-hint-color)', fontSize: '14px', textTransform: 'uppercase' }}>
+                                            Рекомендации
+                                        </Headline>
+                                        <Text style={{ color: 'var(--tg-theme-text-color)', display: 'block' }}>
+                                            {node.actions.join(", ")}
+                                        </Text>
+                                    </div>
+                                </Section>
+                            )}
+                            {node.products && node.products.length > 0 && (
+                                <Section>
+                                    <div style={{ padding: '16px 16px 16px' }}>
+                                        <Headline weight="2" style={{ marginBottom: '12px', color: 'var(--tg-theme-hint-color)', fontSize: '14px', textTransform: 'uppercase' }}>
+                                            Рекомендованные товары
+                                        </Headline>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                            {node.products.map((product, pIdx) => (
+                                                <div key={pIdx} style={{ 
+                                                    display: 'flex', 
+                                                    gap: '12px', 
+                                                    background: 'var(--tg-theme-secondary-bg-color)', 
+                                                    padding: '12px', 
+                                                    borderRadius: '12px' 
+                                                }}>
+                                                    <img 
+                                                        src={product.image} 
+                                                        alt={product.name} 
+                                                        style={{ width: '80px', height: '80px', borderRadius: '8px', objectFit: 'cover' }} 
+                                                    />
+                                                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                                                        <Text weight="2" style={{ display: 'block' }}>{product.name}</Text>
+                                                        <Text style={{ fontSize: '14px', color: 'var(--tg-theme-hint-color)', display: 'block' }}>
+                                                            {product.description}
+                                                        </Text>
+                                                        <div style={{ display: 'flex', gap: '8px', marginTop: '4px', flexWrap: 'wrap' }}>
+                                                            {product.links.map((link, lIdx) => (
+                                                                <Button 
+                                                                    key={lIdx} 
+                                                                    size="s" 
+                                                                    mode="bezeled"
+                                                                    onClick={() => window.open(link.url, '_blank')}
+                                                                >
+                                                                    {link.title}
+                                                                </Button>
+                                                            ))}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        ))}
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
-                            </Section>
-                        )}
-                    </List>
+                                </Section>
+                            )}
+                        </List>
+                    </div>
                     <div className="quiz-runner__back-button">
                         <Button size="l" stretched onClick={restart}>
                             Пройти ещё раз
@@ -154,30 +156,42 @@ export function QuizRunner({ tree }: { tree: QuizTree }) {
             </div>
 
             <div className="quiz-runner__footer">
-                <List>
-                    <Section header="Выберите вариант">
-                        <div className="quiz-runner__options">
-                            {node.options.map((opt, idx) => (
-                                <Button
-                                    key={idx}
-                                    mode="bezeled"
-                                    size="l"
-                                    stretched
-                                    style={{ justifyContent: 'flex-start', textAlign: 'left', height: 'auto', padding: '12px' }}
-                                    onClick={() => {
-                                        setState((prev) => ({
-                                            currentId: opt.next,
-                                            history: [...prev.history, prev.currentId],
-                                            tags: [...prev.tags, ...(opt.tags ?? [])],
-                                        }));
-                                    }}
-                                >
-                                    <span style={{ whiteSpace: 'normal' }}>{opt.text}</span>
-                                </Button>
-                            ))}
-                        </div>
-                    </Section>
-                </List>
+                <div className="quiz-runner__options-container">
+                    <List>
+                        <Section header="Выберите вариант">
+                            <div className="quiz-runner__options">
+                                {node.options.map((opt, idx) => {
+                                    const hasImage = !!opt.image;
+                                    return (
+                                        <div
+                                            key={idx}
+                                            className={`quiz-runner__option ${hasImage ? "quiz-runner__option--with-image" : ""}`}
+                                            onClick={() => {
+                                                setState((prev) => ({
+                                                    currentId: opt.next,
+                                                    history: [...prev.history, prev.currentId],
+                                                    tags: [...prev.tags, ...(opt.tags ?? [])],
+                                                }));
+                                            }}
+                                        >
+                                            {opt.image && (
+                                                <div className="quiz-runner__option-image-container">
+                                                    <img 
+                                                        src={opt.image} 
+                                                        alt="" 
+                                                    />
+                                                </div>
+                                            )}
+                                            <div className="quiz-runner__option-text">
+                                                <Text weight="2">{opt.text}</Text>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </Section>
+                    </List>
+                </div>
 
                 <div className="quiz-runner__back-button">
                         <Button 
