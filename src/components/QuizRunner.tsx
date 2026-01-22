@@ -46,44 +46,45 @@ export function QuizRunner({ tree }: { tree: QuizTree }) {
         });
     }
 
-    function restart() {
-        setState(createInitialState(tree));
-    }
 
     if (node.type === "result") {
         return (
             <div className="quiz-runner">
-                <FixedLayout vertical="top" style={{ background: 'var(--tg-theme-bg-color, #fff)', borderBottom: '1px solid var(--tg-theme-secondary-bg-color, #efefef)', padding: '12px 16px', zIndex: 10 }}>
-                    <Headline weight="2" style={{ textAlign: 'center' }}>
-                        {tree.title}
-                    </Headline>
-                </FixedLayout>
+                <div className="quiz-runner__result-header">
+                    <FixedLayout vertical="top" style={{ background: 'var(--tg-theme-bg-color, #fff)', borderBottom: '1px solid var(--tg-theme-secondary-bg-color, #efefef)', padding: '12px 16px', zIndex: 10 }}>
+                        <Headline weight="2" style={{ textAlign: 'center' }}>
+                            {tree.title}
+                        </Headline>
+                    </FixedLayout>
 
-                <div className="quiz-runner__content" style={{ paddingTop: '56px', display: 'block' }}>
-                    <Placeholder>
-                        <div className="quiz-runner__question-text">
-                            <Headline weight="1">
-                                {node.title}
-                            </Headline>
-                        </div>
-                        {node.image && (
-                            <div className="quiz-runner__result-image" style={{ marginBottom: '16px', borderRadius: '16px', overflow: 'hidden', width: '200px', height: '200px', margin: '0 auto 16px' }}>
-                                <img 
-                                    src={resolveAsset(node.image)} 
-                                    alt={node.title} 
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                />
+                    <div className="quiz-runner__content" style={{ paddingTop: '56px' }}>
+                        <Placeholder style={{ padding: '0 0 4px' }}>
+                            <div className="quiz-runner__question-text" style={{ padding: '8px 24px 2px' }}>
+                                <Headline weight="2">
+                                    {node.title}
+                                </Headline>
                             </div>
-                        )}
-                        <Text style={{ 
-                            color: 'var(--tg-theme-hint-color)', 
-                            display: 'block', 
-                            textAlign: 'center',
-                            padding: '0 32px' 
-                        }}>
-                            {node.diagnosis}
-                        </Text>
-                    </Placeholder>
+                            {node.image && (
+                                <div className="quiz-runner__result-image-container">
+                                    <img 
+                                        src={resolveAsset(node.image)} 
+                                        alt={node.title} 
+                                        className="quiz-runner__result-image"
+                                    />
+                                </div>
+                            )}
+                            <Text style={{ 
+                                color: 'var(--tg-theme-hint-color)', 
+                                display: 'block', 
+                                textAlign: 'center',
+                                padding: '4px 32px 0',
+                                fontSize: '13px',
+                                lineHeight: '1.2'
+                            }}>
+                                {node.diagnosis}
+                            </Text>
+                        </Placeholder>
+                    </div>
                 </div>
 
                 <div className="quiz-runner__footer">
@@ -91,11 +92,11 @@ export function QuizRunner({ tree }: { tree: QuizTree }) {
                         <List>
                             {node.actions.length > 0 && (
                                 <Section>
-                                    <div style={{ padding: '16px 16px 16px' }}>
-                                        <Headline weight="2" style={{ marginBottom: '8px', color: 'var(--tg-theme-hint-color)', fontSize: '14px', textTransform: 'uppercase' }}>
+                                    <div style={{ padding: '8px 16px 8px' }}>
+                                        <Headline weight="2" style={{ marginBottom: '4px', color: 'var(--tg-theme-hint-color)', fontSize: '12px', textTransform: 'uppercase' }}>
                                             Рекомендации
                                         </Headline>
-                                        <Text style={{ color: 'var(--tg-theme-text-color)', display: 'block' }}>
+                                        <Text style={{ color: 'var(--tg-theme-text-color)', display: 'block', fontSize: '14px' }}>
                                             {node.actions.join(", ")}
                                         </Text>
                                     </div>
@@ -103,36 +104,37 @@ export function QuizRunner({ tree }: { tree: QuizTree }) {
                             )}
                             {node.products && node.products.length > 0 && (
                                 <Section>
-                                    <div style={{ padding: '16px 16px 16px' }}>
-                                        <Headline weight="2" style={{ marginBottom: '12px', color: 'var(--tg-theme-hint-color)', fontSize: '14px', textTransform: 'uppercase' }}>
+                                    <div style={{ padding: '8px 16px 8px' }}>
+                                        <Headline weight="2" style={{ marginBottom: '8px', color: 'var(--tg-theme-hint-color)', fontSize: '12px', textTransform: 'uppercase' }}>
                                             Рекомендованные товары
                                         </Headline>
-                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                             {node.products.map((product, pIdx) => (
                                                 <div key={pIdx} style={{ 
                                                     display: 'flex', 
                                                     gap: '12px', 
                                                     background: 'var(--tg-theme-secondary-bg-color)', 
-                                                    padding: '12px', 
+                                                    padding: '8px', 
                                                     borderRadius: '12px' 
                                                 }}>
                                                     <img 
                                                         src={resolveAsset(product.image)} 
                                                         alt={product.name} 
-                                                        style={{ width: '80px', height: '80px', borderRadius: '8px', objectFit: 'cover' }} 
+                                                        style={{ width: '64px', height: '64px', borderRadius: '8px', objectFit: 'cover' }} 
                                                     />
-                                                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                                                        <Text weight="2" style={{ display: 'block' }}>{product.name}</Text>
-                                                        <Text style={{ fontSize: '14px', color: 'var(--tg-theme-hint-color)', display: 'block' }}>
+                                                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                                        <Text weight="2" style={{ display: 'block', fontSize: '14px' }}>{product.name}</Text>
+                                                        <Text style={{ fontSize: '13px', color: 'var(--tg-theme-hint-color)', display: 'block', lineHeight: '1.2' }}>
                                                             {product.description}
                                                         </Text>
-                                                        <div style={{ display: 'flex', gap: '8px', marginTop: '4px', flexWrap: 'wrap' }}>
+                                                        <div style={{ display: 'flex', gap: '8px', marginTop: '2px', flexWrap: 'wrap' }}>
                                                             {product.links.map((link, lIdx) => (
                                                                 <Button 
                                                                     key={lIdx} 
                                                                     size="s" 
                                                                     mode="bezeled"
                                                                     onClick={() => window.open(link.url, '_blank')}
+                                                                    style={{ height: '28px', padding: '0 8px' }}
                                                                 >
                                                                     {link.title}
                                                                 </Button>
@@ -147,9 +149,21 @@ export function QuizRunner({ tree }: { tree: QuizTree }) {
                             )}
                         </List>
                     </div>
-                    <div className="quiz-runner__back-button">
-                        <Button size="l" stretched onClick={restart}>
-                            Пройти ещё раз
+                    <div className="quiz-runner__result-buttons">
+                        <Button 
+                            size="l"
+                            mode="gray"
+                            stretched 
+                            onClick={(e) => goBack(e)}
+                        >
+                            Назад
+                        </Button>
+                        <Button 
+                            size="l"
+                            stretched 
+                            onClick={() => navigate('/')}
+                        >
+                            На главную
                         </Button>
                     </div>
                 </div>
@@ -167,9 +181,9 @@ export function QuizRunner({ tree }: { tree: QuizTree }) {
             </FixedLayout>
 
             <div className="quiz-runner__content" style={{ paddingTop: '56px', display: 'block' }}>
-                <Placeholder>
-                    <div className="quiz-runner__question-text">
-                        <Headline weight="1">
+                <Placeholder style={{ padding: '0 0 16px' }}>
+                    <div className="quiz-runner__question-text" style={{ padding: '20px 24px 12px' }}>
+                        <Headline weight="2">
                             {node.text}
                         </Headline>
                     </div>
@@ -217,6 +231,7 @@ export function QuizRunner({ tree }: { tree: QuizTree }) {
                 <div className="quiz-runner__back-button">
                         <Button 
                             size="l" 
+                            mode="gray"
                             stretched 
                             onClick={(e) => goBack(e)} 
                         >
