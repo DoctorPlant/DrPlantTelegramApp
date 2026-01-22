@@ -7,6 +7,18 @@ import { createInitialState, getNode, type QuizState } from "@/quiz/engine";
 
 import './QuizRunner.css';
 
+// Helper to resolve asset paths with base URL
+function resolveAsset(path: string | undefined) {
+    if (!path) return undefined;
+    if (path.startsWith('http')) return path;
+    const base = import.meta.env.BASE_URL;
+    // Ensure base ends with / and path doesn't start with / for simple concatenation
+    const normalizedBase = base.endsWith('/') ? base : `${base}/`;
+    const normalizedPath = path.startsWith('/') ? path.substring(1) : path;
+    const resolved = `${normalizedBase}${normalizedPath}`;
+    return resolved;
+}
+
 export function QuizRunner({ tree }: { tree: QuizTree }) {
     const navigate = useNavigate();
     const initial = useMemo(() => createInitialState(tree), [tree]);
@@ -96,7 +108,7 @@ export function QuizRunner({ tree }: { tree: QuizTree }) {
                                                     borderRadius: '12px' 
                                                 }}>
                                                     <img 
-                                                        src={product.image} 
+                                                        src={resolveAsset(product.image)} 
                                                         alt={product.name} 
                                                         style={{ width: '80px', height: '80px', borderRadius: '8px', objectFit: 'cover' }} 
                                                     />
@@ -177,7 +189,7 @@ export function QuizRunner({ tree }: { tree: QuizTree }) {
                                             {opt.image && (
                                                 <div className="quiz-runner__option-image-container">
                                                     <img 
-                                                        src={opt.image} 
+                                                        src={resolveAsset(opt.image)} 
                                                         alt="" 
                                                     />
                                                 </div>

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Page } from '@/components/Page';
 
 import './IndexPage.css';
-import appLogo from '../../../assets/logo.png';
+const appLogo = `${import.meta.env.BASE_URL}logo.png`;
 
 export const IndexPage: FC = () => {
   const navigate = useNavigate();
