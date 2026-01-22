@@ -66,6 +66,15 @@ export function QuizRunner({ tree }: { tree: QuizTree }) {
                                 {node.title}
                             </Headline>
                         </div>
+                        {node.image && (
+                            <div className="quiz-runner__result-image" style={{ marginBottom: '16px', borderRadius: '16px', overflow: 'hidden', width: '200px', height: '200px', margin: '0 auto 16px' }}>
+                                <img 
+                                    src={resolveAsset(node.image)} 
+                                    alt={node.title} 
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                />
+                            </div>
+                        )}
                         <Text style={{ 
                             color: 'var(--tg-theme-hint-color)', 
                             display: 'block', 

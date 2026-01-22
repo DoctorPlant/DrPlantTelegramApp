@@ -1,0 +1,181 @@
+{
+  "common_style": "Minimalist 3D isometric illustration, diagnostic style, transparent background, square aspect ratio, no text, no extra objects",
+  "tasks": [
+    {
+      "filename": "symptoms/spots_or_color.png",
+      "prompt": "Houseplant leaf with various spots and discolorations."
+    },
+    {
+      "filename": "symptoms/wilt_or_dry.png",
+      "prompt": "Drooping, wilting houseplant with dry, crispy leaves."
+    },
+    {
+      "filename": "symptoms/coating.png",
+      "prompt": "Houseplant leaf covered in white powdery mildew and fuzzy mold."
+    },
+    {
+      "filename": "symptoms/pests.png",
+      "prompt": "Houseplant leaf with small insects, spider webs, and sticky droplets."
+    },
+    {
+      "filename": "symptoms/deformation.png",
+      "prompt": "Houseplant leaf that is twisted, curled, and abnormally shaped."
+    },
+    {
+      "filename": "symptoms/spots.png",
+      "prompt": "Close-up of a houseplant leaf with distinct brown and yellow spots."
+    },
+    {
+      "filename": "symptoms/yellowing.png",
+      "prompt": "Houseplant leaf turning completely yellow while veins stay slightly green."
+    },
+    {
+      "filename": "symptoms/wilting.png",
+      "prompt": "Houseplant with soft, limp cloth-like leaves hanging down."
+    },
+    {
+      "filename": "symptoms/dry_edges.png",
+      "prompt": "Houseplant leaf with brown, crispy, burnt edges."
+    },
+    {
+      "filename": "symptoms/white_powder.png",
+      "prompt": "White powdery mildew on a leaf, looking like flour or dust."
+    },
+    {
+      "filename": "symptoms/gray_mold.png",
+      "prompt": "Gray, fuzzy mold (Botrytis) on a leaf or stem, looks like soft gray fur."
+    },
+    {
+      "filename": "symptoms/downy_mildew.png",
+      "prompt": "Yellow spots on the upper side of a leaf and purplish-gray fuzzy coating on the underside."
+    },
+    {
+      "filename": "symptoms/sticky_film.png",
+      "prompt": "Glossy, sticky transparent film (honeydew) on a leaf surface."
+    },
+    {
+      "filename": "symptoms/dry_spots.png",
+      "prompt": "Distinct dry, crispy brown spots on a leaf."
+    },
+    {
+      "filename": "symptoms/wet_spots.png",
+      "prompt": "Water-soaked, soft, and dark spots on a leaf."
+    },
+    {
+      "filename": "symptoms/sunburn.png",
+      "prompt": "Pale, bleached, or beige dry spots on a leaf, appearing on the side facing light."
+    },
+    {
+      "filename": "symptoms/not_sunburn.png",
+      "prompt": "Dark brown irregular spots, clearly not related to light exposure."
+    },
+    {
+      "filename": "symptoms/spreading_spots.png",
+      "prompt": "Dark brown spots with concentric circles, clearly spreading across the leaf."
+    },
+    {
+      "filename": "symptoms/localized_spots.png",
+      "prompt": "Small, static spots that do not seem to grow."
+    },
+    {
+      "filename": "symptoms/rust_pustules.png",
+      "prompt": "Small orange or rusty-colored bumps (pustules) on the underside of a leaf."
+    },
+    {
+      "filename": "symptoms/wet_rot_smell.png",
+      "prompt": "Mushy, decaying leaf tissue with a dark, slimy appearance."
+    },
+    {
+      "filename": "symptoms/wet_spots_no_smell.png",
+      "prompt": "Watery spots on a leaf that are not decaying or smelly."
+    },
+    {
+      "filename": "symptoms/yellow_halo_greasy.png",
+      "prompt": "Dark spots on a leaf surrounded by a distinct bright yellow ring (halo)."
+    },
+    {
+      "filename": "symptoms/lower_yellowing.png",
+      "prompt": "Only the oldest, bottom leaves of a plant are turning yellow."
+    },
+    {
+      "filename": "symptoms/upper_yellowing.png",
+      "prompt": "Only the newest, top leaves are turning yellow (chlorosis)."
+    },
+    {
+      "filename": "symptoms/whole_yellowing.png",
+      "prompt": "The entire plant is becoming pale yellow."
+    },
+    {
+      "filename": "symptoms/weak_growth.png",
+      "prompt": "Small, pale leaves and stunted, weak plant growth."
+    },
+    {
+      "filename": "symptoms/iron_chlorosis.png",
+      "prompt": "Yellow leaf with distinct, bright green veins (interveinal chlorosis)."
+    },
+    {
+      "filename": "symptoms/wet_soil.png",
+      "prompt": "Dark, wet, muddy soil in a pot."
+    },
+    {
+      "filename": "symptoms/dry_soil.png",
+      "prompt": "Light-colored, cracked, and dry soil in a pot."
+    },
+    {
+      "filename": "symptoms/normal_soil.png",
+      "prompt": "Perfectly moist, dark brown crumbly soil."
+    },
+    {
+      "filename": "symptoms/cold_stress.png",
+      "prompt": "A plant looking shocked, with sudden drooping or dark patches after a cold draft."
+    },
+    {
+      "filename": "symptoms/dry_tips.png",
+      "prompt": "Leaf with only the very tips being brown and crispy."
+    },
+    {
+      "filename": "symptoms/dry_edges_burn.png",
+      "prompt": "Leaf with brown, crispy edges along the entire perimeter."
+    },
+    {
+      "filename": "symptoms/low_humidity.png",
+      "prompt": "Air around the plant looking dry, symbolized by a small radiator icon nearby."
+    },
+    {
+      "filename": "symptoms/soil_salt.png",
+      "prompt": "White crusty mineral buildup on the soil surface or pot rim."
+    },
+    {
+      "filename": "symptoms/spider_mite.png",
+      "prompt": "Tiny white dots on a leaf and a very fine spider web."
+    },
+    {
+      "filename": "symptoms/aphids.png",
+      "prompt": "Clusters of small green or black insects on a young shoot."
+    },
+    {
+      "filename": "symptoms/mealybug.png",
+      "prompt": "White, cotton-like fluffy bugs in the leaf axils."
+    },
+    {
+      "filename": "symptoms/scale.png",
+      "prompt": "Small brown, oval, shell-like bumps firmly attached to a stem."
+    },
+    {
+      "filename": "symptoms/thrips.png",
+      "prompt": "Silvery streaks and tiny black specks (excrement) on a leaf."
+    },
+    {
+      "filename": "symptoms/whitefly.png",
+      "prompt": "Tiny white moths flying around a plant."
+    },
+    {
+      "filename": "symptoms/mosaic_pattern.png",
+      "prompt": "Leaf with a mottled, \"mosaic\" pattern of light and dark green patches."
+    },
+    {
+      "filename": "symptoms/low_light_stretching.png",
+      "prompt": "A plant with long, thin, weak stems and small leaves (etiolation)."
+    }
+  ]
+}

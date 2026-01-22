@@ -31,6 +31,7 @@ export const QuizResultNodeSchema = z.object({
     type: z.literal("result"),
     title: z.string(),
     diagnosis: z.string(),
+    image: z.string().optional(),
     actions: z.array(z.string()),
     products: z.array(QuizProductSchema).optional(),
 });
